@@ -1,2 +1,5 @@
 *.Zip
 *.LOG
+.SchDocPreview
+*.SchDocPreview
+*.PcbDocPreview

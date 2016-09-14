@@ -1,0 +1,612 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD16\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">9/14/2016</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">12:01:15 PM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc" class="file"><acronym title="E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc">E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">1</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">87</td></tr>
+</table>
+</td>
+</table><a name="IDR3XTTPBDC2AEB0VAYZXDKEBFWFROYL4GAL25TDKKKHFMWTX2EK0N"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID4DUPH3J0T2JJHYEIX001UWL0BDBPKWBTLOX4V3PH40M13DC1OHNN">Your board contains 1 shelved polygon - copper connectivity will not be reported correctly. Unshelve polygons and re-run DRC check before  producing manufacturing outputs.</a></td>
+<td class="column2">1</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">1</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDQD531HQSQFBSNFEPWMRU2OVYUNY40ZNS54JP3BPWYZ3OV1BTQFMO">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDI0YBOBHAHRRWLMLDDLJCXCUXIIV3VTORT55TNGI4Q5GM5IWOHMQK">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDGIBZVND2QZV4J5PZJT1JQ3VKLHOC02GQLOOGMBBCSYC4BPS33WEL">Clearance Constraint (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDTLJTVPT0WSIJGOUMYYCOPIBHGLVEZRD4J2ELLLPAPD1ZVQAJFOD">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAJLBZBS02JSSO0AM1DENBGEIEBJVGZWLAPTJG1GF3F3MJQ4WJOJD">Width Constraint (Min=10mil) (Max=100mil) (Preferred=25mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID5OT3UROOVXMLNHZJ1YOCJHSQ1KOEOBP3X1NDKVCE5Y5LB3XPHSXP">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDY1O0V15SCKPVHQMVMDNKKGUOKDKSBGL4IXLYPRVXGY2O40HG43C">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDS130JZNCLD21K1OEBSBLHMSY0JI350QTI4AV1ALO2ZZQ12WZEALM">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID05E2V0MGGETMDQFVLBKGYQXXSJILKYYRJLQKMIOFAFNGO0V0P2YP">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</a></td>
+<td class="column2">1</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDJHQCOFI5AEKNFXPBHXEFD5JVRLAI5NACDU1C3IP2OQSTA5HXIATJ">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</a></td>
+<td class="column2">78</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID214B0YC3NMPNBY25WIBOJJYQGFZJPLGISILHVVMEGMQSMCRMQPW">Silk to Silk (Clearance=10mil) (All),(All)</a></td>
+<td class="column2">7</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDWS1VBRYKIFBFECJZOWZ4SH3JPBST1SZYGMWIBWLZT2KCWZMUI3QE">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID1G34DI1EMJQMBY1NMRFSOFOVMHDGWAIUEJB1SZJNH5ZPD4XMLHIJ">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">1</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">87</td>
+</tr>
+</table><br><a name="IDSEFDP0XFA43XBY1DR2MPEFHSSESBIQXIF04XWVOMMAZXU51KT3YG"><h2>Warnings</h2></a><a name="ID4DUPH3J0T2JJHYEIX001UWL0BDBPKWBTLOX4V3PH40M13DC1OHNN"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="warning">Your board contains 1 shelved polygon - copper connectivity will not be reported correctly. Unshelve polygons and re-run DRC check before  producing manufacturing outputs.</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1">Polygon named: top In net GND On Bottom Layer</td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID05E2V0MGGETMDQFVLBKGYQXXSJILKYYRJLQKMIOFAFNGO0V0P2YP"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2746.761mil|Location2.X=2758.011mil|Location1.Y=2339.814mil|Location2.Y=2351.064mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2746.761mil|Location2.X=2758.011mil|Location1.Y=2339.814mil|Location2.Y=2351.064mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.052mil &lt; 10mil) Between Via (2760mil,2375mil) from Top Layer to Bottom Layer And Pad Q3-3(2730.289mil,2321.26mil) on Bottom Layer [Bottom Solder] Mask Sliver [3.052mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDJHQCOFI5AEKNFXPBHXEFD5JVRLAI5NACDU1C3IP2OQSTA5HXIATJ"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4025.879mil|Location2.X=4037.129mil|Location1.Y=2514.375mil|Location2.Y=2525.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4025.879mil|Location2.X=4037.129mil|Location1.Y=2514.375mil|Location2.Y=2525.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.008mil &lt; 10mil) Between Track (4025mil,2170mil)(4025mil,2670mil) on Top Overlay And Pad H1-4(4075mil,2520mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [8.008mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4112.871mil|Location2.X=4124.121mil|Location1.Y=2514.375mil|Location2.Y=2525.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4112.871mil|Location2.X=4124.121mil|Location1.Y=2514.375mil|Location2.Y=2525.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.008mil &lt; 10mil) Between Track (4125mil,2170mil)(4125mil,2670mil) on Top Overlay And Pad H1-4(4075mil,2520mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [8.008mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4025.879mil|Location2.X=4037.129mil|Location1.Y=2414.375mil|Location2.Y=2425.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4025.879mil|Location2.X=4037.129mil|Location1.Y=2414.375mil|Location2.Y=2425.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.008mil &lt; 10mil) Between Track (4025mil,2170mil)(4025mil,2670mil) on Top Overlay And Pad H1-3(4075mil,2420mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [8.008mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4112.871mil|Location2.X=4124.121mil|Location1.Y=2414.375mil|Location2.Y=2425.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4112.871mil|Location2.X=4124.121mil|Location1.Y=2414.375mil|Location2.Y=2425.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.008mil &lt; 10mil) Between Track (4125mil,2170mil)(4125mil,2670mil) on Top Overlay And Pad H1-3(4075mil,2420mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [8.008mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4025.94mil|Location2.X=4037.19mil|Location1.Y=2206.805mil|Location2.Y=2218.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4025.94mil|Location2.X=4037.19mil|Location1.Y=2206.805mil|Location2.Y=2218.055mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.13mil &lt; 10mil) Between Track (4025mil,2170mil)(4025mil,2670mil) on Top Overlay And Pad H1-1(4075mil,2220mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [8.13mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4112.81mil|Location2.X=4124.06mil|Location1.Y=2175.005mil|Location2.Y=2186.255mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4112.81mil|Location2.X=4124.06mil|Location1.Y=2175.005mil|Location2.Y=2186.255mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.13mil &lt; 10mil) Between Track (4125mil,2170mil)(4125mil,2670mil) on Top Overlay And Pad H1-1(4075mil,2220mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [8.13mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4030.005mil|Location2.X=4041.255mil|Location1.Y=2170.94mil|Location2.Y=2182.19mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4030.005mil|Location2.X=4041.255mil|Location1.Y=2170.94mil|Location2.Y=2182.19mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.13mil &lt; 10mil) Between Track (4025mil,2170mil)(4125mil,2170mil) on Top Overlay And Pad H1-1(4075mil,2220mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [8.13mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4025.879mil|Location2.X=4037.129mil|Location1.Y=2314.375mil|Location2.Y=2325.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4025.879mil|Location2.X=4037.129mil|Location1.Y=2314.375mil|Location2.Y=2325.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.008mil &lt; 10mil) Between Track (4025mil,2170mil)(4025mil,2670mil) on Top Overlay And Pad H1-2(4075mil,2320mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [8.008mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4112.871mil|Location2.X=4124.121mil|Location1.Y=2314.375mil|Location2.Y=2325.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4112.871mil|Location2.X=4124.121mil|Location1.Y=2314.375mil|Location2.Y=2325.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.008mil &lt; 10mil) Between Track (4125mil,2170mil)(4125mil,2670mil) on Top Overlay And Pad H1-2(4075mil,2320mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [8.008mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4025.879mil|Location2.X=4037.129mil|Location1.Y=2614.375mil|Location2.Y=2625.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4025.879mil|Location2.X=4037.129mil|Location1.Y=2614.375mil|Location2.Y=2625.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.008mil &lt; 10mil) Between Track (4025mil,2170mil)(4025mil,2670mil) on Top Overlay And Pad H1-5(4075mil,2620mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [8.008mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4112.871mil|Location2.X=4124.121mil|Location1.Y=2614.375mil|Location2.Y=2625.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4112.871mil|Location2.X=4124.121mil|Location1.Y=2614.375mil|Location2.Y=2625.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.008mil &lt; 10mil) Between Track (4125mil,2170mil)(4125mil,2670mil) on Top Overlay And Pad H1-5(4075mil,2620mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [8.008mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4069.375mil|Location2.X=4080.625mil|Location1.Y=2657.871mil|Location2.Y=2669.121mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4069.375mil|Location2.X=4080.625mil|Location1.Y=2657.871mil|Location2.Y=2669.121mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.008mil &lt; 10mil) Between Track (4025mil,2670mil)(4125mil,2670mil) on Top Overlay And Pad H1-5(4075mil,2620mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [8.008mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3837.007mil|Location2.X=3844.673mil|Location1.Y=2567.45mil|Location2.Y=2575.117mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3837.007mil|Location2.X=3844.673mil|Location1.Y=2567.45mil|Location2.Y=2575.117mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Track (3840.84mil,1961.26mil)(3840.84mil,2697.48mil) on Top Overlay And Pad RL1-3(3795.289mil,2600mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3246.456mil|Location2.X=3254.122mil|Location1.Y=2572.41mil|Location2.Y=2580.076mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3246.456mil|Location2.X=3254.122mil|Location1.Y=2572.41mil|Location2.Y=2580.076mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Track (3250.289mil,1961.26mil)(3250.289mil,2697.48mil) on Top Overlay And Pad RL1-2(3295.289mil,2600mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3837.007mil|Location2.X=3844.673mil|Location1.Y=2088.71mil|Location2.Y=2096.376mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3837.007mil|Location2.X=3844.673mil|Location1.Y=2088.71mil|Location2.Y=2096.376mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Track (3840.84mil,1961.26mil)(3840.84mil,2697.48mil) on Top Overlay And Pad RL1-5(3795.289mil,2121.26mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3246.456mil|Location2.X=3254.122mil|Location1.Y=2093.67mil|Location2.Y=2101.336mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3246.456mil|Location2.X=3254.122mil|Location1.Y=2093.67mil|Location2.Y=2101.336mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Track (3250.289mil,1961.26mil)(3250.289mil,2697.48mil) on Top Overlay And Pad RL1-4(3295.289mil,2121.26mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3541.456mil|Location2.X=3549.122mil|Location1.Y=1962.427mil|Location2.Y=1970.093mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3541.456mil|Location2.X=3549.122mil|Location1.Y=1962.427mil|Location2.Y=1970.093mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Track (3250.289mil,1961.26mil)(3840.84mil,1961.26mil) on Top Overlay And Pad RL1-1(3545.289mil,2021.26mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3167.007mil|Location2.X=3174.673mil|Location1.Y=2566.19mil|Location2.Y=2573.857mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3167.007mil|Location2.X=3174.673mil|Location1.Y=2566.19mil|Location2.Y=2573.857mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Track (3170.84mil,1960mil)(3170.84mil,2696.22mil) on Top Overlay And Pad RL3-3(3125.289mil,2598.74mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2576.456mil|Location2.X=2584.122mil|Location1.Y=2571.15mil|Location2.Y=2578.817mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2576.456mil|Location2.X=2584.122mil|Location1.Y=2571.15mil|Location2.Y=2578.817mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Track (2580.289mil,1960mil)(2580.289mil,2696.22mil) on Top Overlay And Pad RL3-2(2625.289mil,2598.74mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2667.02mil|Location2.X=2674.686mil|Location1.Y=2566.191mil|Location2.Y=2573.858mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2667.02mil|Location2.X=2674.686mil|Location1.Y=2566.191mil|Location2.Y=2573.858mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Text "R3" (2764.386mil,2542mil) on Bottom Overlay And Pad RL3-2(2625.289mil,2598.74mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3167.007mil|Location2.X=3174.673mil|Location1.Y=2087.45mil|Location2.Y=2095.117mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3167.007mil|Location2.X=3174.673mil|Location1.Y=2087.45mil|Location2.Y=2095.117mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Track (3170.84mil,1960mil)(3170.84mil,2696.22mil) on Top Overlay And Pad RL3-5(3125.289mil,2120mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2576.456mil|Location2.X=2584.122mil|Location1.Y=2092.41mil|Location2.Y=2100.076mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2576.456mil|Location2.X=2584.122mil|Location1.Y=2092.41mil|Location2.Y=2100.076mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Track (2580.289mil,1960mil)(2580.289mil,2696.22mil) on Top Overlay And Pad RL3-4(2625.289mil,2120mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2871.456mil|Location2.X=2879.122mil|Location1.Y=1961.167mil|Location2.Y=1968.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2871.456mil|Location2.X=2879.122mil|Location1.Y=1961.167mil|Location2.Y=1968.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Track (2580.289mil,1960mil)(3170.84mil,1960mil) on Top Overlay And Pad RL3-1(2875.289mil,2020mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4132.81mil|Location2.X=4144.06mil|Location1.Y=2005.005mil|Location2.Y=2016.255mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4132.81mil|Location2.X=4144.06mil|Location1.Y=2005.005mil|Location2.Y=2016.255mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.13mil &lt; 10mil) Between Track (4145mil,1930mil)(4145mil,2160mil) on Top Overlay And Pad J1-1(4095mil,2050mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [8.13mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3945.879mil|Location2.X=3957.129mil|Location1.Y=2044.375mil|Location2.Y=2055.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3945.879mil|Location2.X=3957.129mil|Location1.Y=2044.375mil|Location2.Y=2055.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.008mil &lt; 10mil) Between Track (3945mil,1930mil)(3945mil,2160mil) on Top Overlay And Pad J1-2(3995mil,2050mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [8.008mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3166.718mil|Location2.X=3174.385mil|Location1.Y=1706.19mil|Location2.Y=1713.857mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3166.718mil|Location2.X=3174.385mil|Location1.Y=1706.19mil|Location2.Y=1713.857mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Track (3170.551mil,1100mil)(3170.551mil,1836.22mil) on Top Overlay And Pad RL2-3(3125mil,1738.74mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2576.167mil|Location2.X=2583.833mil|Location1.Y=1711.15mil|Location2.Y=1718.817mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2576.167mil|Location2.X=2583.833mil|Location1.Y=1711.15mil|Location2.Y=1718.817mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Track (2580mil,1100mil)(2580mil,1836.22mil) on Top Overlay And Pad RL2-2(2625mil,1738.74mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3166.718mil|Location2.X=3174.385mil|Location1.Y=1227.45mil|Location2.Y=1235.117mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3166.718mil|Location2.X=3174.385mil|Location1.Y=1227.45mil|Location2.Y=1235.117mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Track (3170.551mil,1100mil)(3170.551mil,1836.22mil) on Top Overlay And Pad RL2-5(3125mil,1260mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2576.167mil|Location2.X=2583.833mil|Location1.Y=1232.41mil|Location2.Y=1240.076mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2576.167mil|Location2.X=2583.833mil|Location1.Y=1232.41mil|Location2.Y=1240.076mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Track (2580mil,1100mil)(2580mil,1836.22mil) on Top Overlay And Pad RL2-4(2625mil,1260mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2871.167mil|Location2.X=2878.833mil|Location1.Y=1101.167mil|Location2.Y=1108.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2871.167mil|Location2.X=2878.833mil|Location1.Y=1101.167mil|Location2.Y=1108.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Track (2580mil,1100mil)(3170.551mil,1100mil) on Top Overlay And Pad RL2-1(2875mil,1160mil) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2908.168mil|Location2.X=2919.418mil|Location1.Y=1464.414mil|Location2.Y=1475.664mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2908.168mil|Location2.X=2919.418mil|Location1.Y=1464.414mil|Location2.Y=1475.664mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.205mil &lt; 10mil) Between Track (2885.289mil,1465mil)(2924.501mil,1465mil) on Bottom Overlay And Pad D2-A(2945.289mil,1501.063mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [2.205mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2918.876mil|Location2.X=2930.126mil|Location1.Y=1464.414mil|Location2.Y=1475.664mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2918.876mil|Location2.X=2930.126mil|Location1.Y=1464.414mil|Location2.Y=1475.664mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.205mil &lt; 10mil) Between Track (2924.501mil,1465mil)(3015.289mil,1465mil) on Bottom Overlay And Pad D2-A(2945.289mil,1501.063mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [2.205mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2908.168mil|Location2.X=2919.418mil|Location1.Y=1734.336mil|Location2.Y=1745.586mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2908.168mil|Location2.X=2919.418mil|Location1.Y=1734.336mil|Location2.Y=1745.586mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.205mil &lt; 10mil) Between Track (2885.289mil,1745mil)(3015.289mil,1745mil) on Bottom Overlay And Pad D2-K(2945.289mil,1708.937mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [2.205mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2909.959mil|Location2.X=2917.626mil|Location1.Y=1676.167mil|Location2.Y=1683.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2909.959mil|Location2.X=2917.626mil|Location1.Y=1676.167mil|Location2.Y=1683.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Track (2885.289mil,1675mil)(3015.289mil,1675mil) on Bottom Overlay And Pad D2-K(2945.289mil,1708.937mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2848.168mil|Location2.X=2859.418mil|Location1.Y=2219.414mil|Location2.Y=2230.664mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2848.168mil|Location2.X=2859.418mil|Location1.Y=2219.414mil|Location2.Y=2230.664mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.205mil &lt; 10mil) Between Track (2825.289mil,2220mil)(2864.501mil,2220mil) on Bottom Overlay And Pad D3-A(2885.289mil,2256.063mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [2.205mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2858.876mil|Location2.X=2870.126mil|Location1.Y=2219.414mil|Location2.Y=2230.664mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2858.876mil|Location2.X=2870.126mil|Location1.Y=2219.414mil|Location2.Y=2230.664mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.205mil &lt; 10mil) Between Track (2864.501mil,2220mil)(2955.289mil,2220mil) on Bottom Overlay And Pad D3-A(2885.289mil,2256.063mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [2.205mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2849.959mil|Location2.X=2857.626mil|Location1.Y=2431.167mil|Location2.Y=2438.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2849.959mil|Location2.X=2857.626mil|Location1.Y=2431.167mil|Location2.Y=2438.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Track (2825.289mil,2430mil)(2955.289mil,2430mil) on Bottom Overlay And Pad D3-K(2885.289mil,2463.937mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2848.168mil|Location2.X=2859.418mil|Location1.Y=2489.336mil|Location2.Y=2500.586mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2848.168mil|Location2.X=2859.418mil|Location1.Y=2489.336mil|Location2.Y=2500.586mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.205mil &lt; 10mil) Between Track (2825.289mil,2500mil)(2955.289mil,2500mil) on Bottom Overlay And Pad D3-K(2885.289mil,2463.937mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [2.205mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3633.588mil|Location2.X=3644.838mil|Location1.Y=2159.414mil|Location2.Y=2170.664mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3633.588mil|Location2.X=3644.838mil|Location1.Y=2159.414mil|Location2.Y=2170.664mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.205mil &lt; 10mil) Between Track (3639.213mil,2160mil)(3730mil,2160mil) on Bottom Overlay And Pad D1-A(3660mil,2196.063mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [2.205mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3622.879mil|Location2.X=3634.129mil|Location1.Y=2159.414mil|Location2.Y=2170.664mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3622.879mil|Location2.X=3634.129mil|Location1.Y=2159.414mil|Location2.Y=2170.664mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.205mil &lt; 10mil) Between Track (3600mil,2160mil)(3639.213mil,2160mil) on Bottom Overlay And Pad D1-A(3660mil,2196.063mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [2.205mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3624.671mil|Location2.X=3632.337mil|Location1.Y=2371.167mil|Location2.Y=2378.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3624.671mil|Location2.X=3632.337mil|Location1.Y=2371.167mil|Location2.Y=2378.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Track (3600mil,2370mil)(3730mil,2370mil) on Bottom Overlay And Pad D1-K(3660mil,2403.937mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3622.879mil|Location2.X=3634.129mil|Location1.Y=2429.336mil|Location2.Y=2440.586mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3622.879mil|Location2.X=3634.129mil|Location1.Y=2429.336mil|Location2.Y=2440.586mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.205mil &lt; 10mil) Between Track (3600mil,2440mil)(3730mil,2440mil) on Bottom Overlay And Pad D1-K(3660mil,2403.937mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [2.205mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2757.414mil|Location2.X=2768.664mil|Location1.Y=2466.625mil|Location2.Y=2477.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2757.414mil|Location2.X=2768.664mil|Location1.Y=2466.625mil|Location2.Y=2477.875mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.5mil &lt; 10mil) Between Track (2763.039mil,2471mil)(2772.289mil,2471mil) on Bottom Overlay And Pad R3-1(2755.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [0.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2765.164mil|Location2.X=2776.414mil|Location1.Y=2466.875mil|Location2.Y=2478.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2765.164mil|Location2.X=2776.414mil|Location1.Y=2466.875mil|Location2.Y=2478.125mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1mil &lt; 10mil) Between Track (2772.289mil,2471mil)(2772.289mil,2510mil) on Bottom Overlay And Pad R3-1(2755.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [1mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2734.664mil|Location2.X=2745.914mil|Location1.Y=2466.625mil|Location2.Y=2477.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2734.664mil|Location2.X=2745.914mil|Location1.Y=2466.625mil|Location2.Y=2477.875mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.5mil &lt; 10mil) Between Track (2710.539mil,2471mil)(2763.039mil,2471mil) on Bottom Overlay And Pad R3-1(2755.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [0.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2732.664mil|Location2.X=2743.914mil|Location1.Y=2471.375mil|Location2.Y=2482.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2732.664mil|Location2.X=2743.914mil|Location1.Y=2471.375mil|Location2.Y=2482.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4mil &lt; 10mil) Between Track (2710.289mil,2477mil)(2735.289mil,2477mil) on Bottom Overlay And Pad R3-1(2755.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [4mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2734.664mil|Location2.X=2745.914mil|Location1.Y=2502.625mil|Location2.Y=2513.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2734.664mil|Location2.X=2745.914mil|Location1.Y=2502.625mil|Location2.Y=2513.875mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.5mil &lt; 10mil) Between Track (2673.289mil,2510mil)(2772.289mil,2510mil) on Bottom Overlay And Pad R3-1(2755.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [1.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2732.664mil|Location2.X=2743.914mil|Location1.Y=2497.375mil|Location2.Y=2508.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2732.664mil|Location2.X=2743.914mil|Location1.Y=2497.375mil|Location2.Y=2508.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4mil &lt; 10mil) Between Track (2710.289mil,2503mil)(2735.289mil,2503mil) on Bottom Overlay And Pad R3-1(2755.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [4mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2669.664mil|Location2.X=2680.914mil|Location1.Y=2466.625mil|Location2.Y=2477.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2669.664mil|Location2.X=2680.914mil|Location1.Y=2466.625mil|Location2.Y=2477.875mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.5mil &lt; 10mil) Between Track (2673.289mil,2471mil)(2710.539mil,2471mil) on Bottom Overlay And Pad R3-2(2690.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [0.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2669.164mil|Location2.X=2680.414mil|Location1.Y=2466.875mil|Location2.Y=2478.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2669.164mil|Location2.X=2680.414mil|Location1.Y=2466.875mil|Location2.Y=2478.125mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1mil &lt; 10mil) Between Track (2673.289mil,2471mil)(2673.289mil,2510mil) on Bottom Overlay And Pad R3-2(2690.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [1mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2701.808mil|Location2.X=2713.058mil|Location1.Y=2466.262mil|Location2.Y=2477.512mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2701.808mil|Location2.X=2713.058mil|Location1.Y=2466.262mil|Location2.Y=2477.512mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.46mil &lt; 10mil) Between Track (2710.539mil,2471mil)(2763.039mil,2471mil) on Bottom Overlay And Pad R3-2(2690.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [4.46mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2701.664mil|Location2.X=2712.914mil|Location1.Y=2471.375mil|Location2.Y=2482.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2701.664mil|Location2.X=2712.914mil|Location1.Y=2471.375mil|Location2.Y=2482.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4mil &lt; 10mil) Between Track (2710.289mil,2477mil)(2735.289mil,2477mil) on Bottom Overlay And Pad R3-2(2690.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [4mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2669.664mil|Location2.X=2680.914mil|Location1.Y=2502.625mil|Location2.Y=2513.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2669.664mil|Location2.X=2680.914mil|Location1.Y=2502.625mil|Location2.Y=2513.875mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.5mil &lt; 10mil) Between Track (2673.289mil,2510mil)(2772.289mil,2510mil) on Bottom Overlay And Pad R3-2(2690.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [1.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2701.664mil|Location2.X=2712.914mil|Location1.Y=2497.375mil|Location2.Y=2508.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2701.664mil|Location2.X=2712.914mil|Location1.Y=2497.375mil|Location2.Y=2508.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4mil &lt; 10mil) Between Track (2710.289mil,2503mil)(2735.289mil,2503mil) on Bottom Overlay And Pad R3-2(2690.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [4mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3482.664mil|Location2.X=3493.914mil|Location1.Y=2471.375mil|Location2.Y=2482.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3482.664mil|Location2.X=3493.914mil|Location1.Y=2471.375mil|Location2.Y=2482.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4mil &lt; 10mil) Between Track (3460.289mil,2477mil)(3485.289mil,2477mil) on Bottom Overlay And Pad R1-1(3505.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [4mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3484.664mil|Location2.X=3495.914mil|Location1.Y=2466.625mil|Location2.Y=2477.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3484.664mil|Location2.X=3495.914mil|Location1.Y=2466.625mil|Location2.Y=2477.875mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.5mil &lt; 10mil) Between Track (3460.539mil,2471mil)(3513.039mil,2471mil) on Bottom Overlay And Pad R1-1(3505.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [0.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3482.664mil|Location2.X=3493.914mil|Location1.Y=2497.375mil|Location2.Y=2508.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3482.664mil|Location2.X=3493.914mil|Location1.Y=2497.375mil|Location2.Y=2508.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4mil &lt; 10mil) Between Track (3460.289mil,2503mil)(3485.289mil,2503mil) on Bottom Overlay And Pad R1-1(3505.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [4mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3515.164mil|Location2.X=3526.414mil|Location1.Y=2466.875mil|Location2.Y=2478.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3515.164mil|Location2.X=3526.414mil|Location1.Y=2466.875mil|Location2.Y=2478.125mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1mil &lt; 10mil) Between Track (3522.289mil,2471mil)(3522.289mil,2510mil) on Bottom Overlay And Pad R1-1(3505.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [1mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3507.414mil|Location2.X=3518.664mil|Location1.Y=2466.625mil|Location2.Y=2477.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3507.414mil|Location2.X=3518.664mil|Location1.Y=2466.625mil|Location2.Y=2477.875mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.5mil &lt; 10mil) Between Track (3513.039mil,2471mil)(3522.289mil,2471mil) on Bottom Overlay And Pad R1-1(3505.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [0.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3484.664mil|Location2.X=3495.914mil|Location1.Y=2502.625mil|Location2.Y=2513.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3484.664mil|Location2.X=3495.914mil|Location1.Y=2502.625mil|Location2.Y=2513.875mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.5mil &lt; 10mil) Between Track (3423.289mil,2510mil)(3522.289mil,2510mil) on Bottom Overlay And Pad R1-1(3505.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [1.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3451.664mil|Location2.X=3462.914mil|Location1.Y=2471.375mil|Location2.Y=2482.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3451.664mil|Location2.X=3462.914mil|Location1.Y=2471.375mil|Location2.Y=2482.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4mil &lt; 10mil) Between Track (3460.289mil,2477mil)(3485.289mil,2477mil) on Bottom Overlay And Pad R1-2(3440.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [4mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3451.808mil|Location2.X=3463.058mil|Location1.Y=2466.262mil|Location2.Y=2477.512mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3451.808mil|Location2.X=3463.058mil|Location1.Y=2466.262mil|Location2.Y=2477.512mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.46mil &lt; 10mil) Between Track (3460.539mil,2471mil)(3513.039mil,2471mil) on Bottom Overlay And Pad R1-2(3440.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [4.46mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3451.664mil|Location2.X=3462.914mil|Location1.Y=2497.375mil|Location2.Y=2508.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3451.664mil|Location2.X=3462.914mil|Location1.Y=2497.375mil|Location2.Y=2508.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4mil &lt; 10mil) Between Track (3460.289mil,2503mil)(3485.289mil,2503mil) on Bottom Overlay And Pad R1-2(3440.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [4mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3419.164mil|Location2.X=3430.414mil|Location1.Y=2466.875mil|Location2.Y=2478.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3419.164mil|Location2.X=3430.414mil|Location1.Y=2466.875mil|Location2.Y=2478.125mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1mil &lt; 10mil) Between Track (3423.289mil,2471mil)(3423.289mil,2510mil) on Bottom Overlay And Pad R1-2(3440.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [1mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3419.664mil|Location2.X=3430.914mil|Location1.Y=2466.625mil|Location2.Y=2477.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3419.664mil|Location2.X=3430.914mil|Location1.Y=2466.625mil|Location2.Y=2477.875mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.5mil &lt; 10mil) Between Track (3423.289mil,2471mil)(3460.539mil,2471mil) on Bottom Overlay And Pad R1-2(3440.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [0.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3419.664mil|Location2.X=3430.914mil|Location1.Y=2502.625mil|Location2.Y=2513.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3419.664mil|Location2.X=3430.914mil|Location1.Y=2502.625mil|Location2.Y=2513.875mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.5mil &lt; 10mil) Between Track (3423.289mil,2510mil)(3522.289mil,2510mil) on Bottom Overlay And Pad R1-2(3440.289mil,2490mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [1.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2772.664mil|Location2.X=2783.914mil|Location1.Y=1706.375mil|Location2.Y=1717.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2772.664mil|Location2.X=2783.914mil|Location1.Y=1706.375mil|Location2.Y=1717.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4mil &lt; 10mil) Between Track (2750.289mil,1712mil)(2775.289mil,1712mil) on Bottom Overlay And Pad R2-1(2795.289mil,1725mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [4mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2772.664mil|Location2.X=2783.914mil|Location1.Y=1732.375mil|Location2.Y=1743.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2772.664mil|Location2.X=2783.914mil|Location1.Y=1732.375mil|Location2.Y=1743.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4mil &lt; 10mil) Between Track (2750.289mil,1738mil)(2775.289mil,1738mil) on Bottom Overlay And Pad R2-1(2795.289mil,1725mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [4mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2797.414mil|Location2.X=2808.664mil|Location1.Y=1701.625mil|Location2.Y=1712.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2797.414mil|Location2.X=2808.664mil|Location1.Y=1701.625mil|Location2.Y=1712.875mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.5mil &lt; 10mil) Between Track (2803.039mil,1706mil)(2812.289mil,1706mil) on Bottom Overlay And Pad R2-1(2795.289mil,1725mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [0.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2805.164mil|Location2.X=2816.414mil|Location1.Y=1701.875mil|Location2.Y=1713.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2805.164mil|Location2.X=2816.414mil|Location1.Y=1701.875mil|Location2.Y=1713.125mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1mil &lt; 10mil) Between Track (2812.289mil,1706mil)(2812.289mil,1745mil) on Bottom Overlay And Pad R2-1(2795.289mil,1725mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [1mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2774.664mil|Location2.X=2785.914mil|Location1.Y=1701.625mil|Location2.Y=1712.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2774.664mil|Location2.X=2785.914mil|Location1.Y=1701.625mil|Location2.Y=1712.875mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.5mil &lt; 10mil) Between Track (2750.539mil,1706mil)(2803.039mil,1706mil) on Bottom Overlay And Pad R2-1(2795.289mil,1725mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [0.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2774.664mil|Location2.X=2785.914mil|Location1.Y=1737.625mil|Location2.Y=1748.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2774.664mil|Location2.X=2785.914mil|Location1.Y=1737.625mil|Location2.Y=1748.875mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.5mil &lt; 10mil) Between Track (2713.289mil,1745mil)(2812.289mil,1745mil) on Bottom Overlay And Pad R2-1(2795.289mil,1725mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [1.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2709.164mil|Location2.X=2720.414mil|Location1.Y=1701.875mil|Location2.Y=1713.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2709.164mil|Location2.X=2720.414mil|Location1.Y=1701.875mil|Location2.Y=1713.125mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1mil &lt; 10mil) Between Track (2713.289mil,1706mil)(2713.289mil,1745mil) on Bottom Overlay And Pad R2-2(2730.289mil,1725mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [1mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2741.664mil|Location2.X=2752.914mil|Location1.Y=1706.375mil|Location2.Y=1717.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2741.664mil|Location2.X=2752.914mil|Location1.Y=1706.375mil|Location2.Y=1717.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4mil &lt; 10mil) Between Track (2750.289mil,1712mil)(2775.289mil,1712mil) on Bottom Overlay And Pad R2-2(2730.289mil,1725mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [4mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2741.664mil|Location2.X=2752.914mil|Location1.Y=1732.375mil|Location2.Y=1743.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2741.664mil|Location2.X=2752.914mil|Location1.Y=1732.375mil|Location2.Y=1743.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4mil &lt; 10mil) Between Track (2750.289mil,1738mil)(2775.289mil,1738mil) on Bottom Overlay And Pad R2-2(2730.289mil,1725mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [4mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2709.664mil|Location2.X=2720.914mil|Location1.Y=1701.625mil|Location2.Y=1712.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2709.664mil|Location2.X=2720.914mil|Location1.Y=1701.625mil|Location2.Y=1712.875mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.5mil &lt; 10mil) Between Track (2713.289mil,1706mil)(2750.539mil,1706mil) on Bottom Overlay And Pad R2-2(2730.289mil,1725mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [0.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2741.808mil|Location2.X=2753.058mil|Location1.Y=1701.262mil|Location2.Y=1712.512mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2741.808mil|Location2.X=2753.058mil|Location1.Y=1701.262mil|Location2.Y=1712.512mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.46mil &lt; 10mil) Between Track (2750.539mil,1706mil)(2803.039mil,1706mil) on Bottom Overlay And Pad R2-2(2730.289mil,1725mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [4.46mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2709.664mil|Location2.X=2720.914mil|Location1.Y=1737.625mil|Location2.Y=1748.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2709.664mil|Location2.X=2720.914mil|Location1.Y=1737.625mil|Location2.Y=1748.875mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.5mil &lt; 10mil) Between Track (2713.289mil,1745mil)(2812.289mil,1745mil) on Bottom Overlay And Pad R2-2(2730.289mil,1725mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [1.5mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID214B0YC3NMPNBY25WIBOJJYQGFZJPLGISILHVVMEGMQSMCRMQPW"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk to Silk (Clearance=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4121.031mil|Location2.X=4132.281mil|Location1.Y=2160.377mil|Location2.Y=2171.627mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4121.031mil|Location2.X=4132.281mil|Location1.Y=2160.377mil|Location2.Y=2171.627mil|Absolute=True">Silk To Silk Clearance Constraint: (3.655mil &lt; 10mil) Between Text "J1" (4130mil,2150mil) on Top Overlay And Track (4025mil,2170mil)(4125mil,2170mil) on Top Overlay Silk Text to Silk Clearance [3.655mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4121.031mil|Location2.X=4132.281mil|Location1.Y=2160.377mil|Location2.Y=2171.627mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4121.031mil|Location2.X=4132.281mil|Location1.Y=2160.377mil|Location2.Y=2171.627mil|Absolute=True">Silk To Silk Clearance Constraint: (3.655mil &lt; 10mil) Between Text "J1" (4130mil,2150mil) on Top Overlay And Track (4125mil,2170mil)(4125mil,2670mil) on Top Overlay Silk Text to Silk Clearance [3.655mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4144.56mil|Location2.X=4155.81mil|Location1.Y=1946.156mil|Location2.Y=1957.406mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4144.56mil|Location2.X=4155.81mil|Location1.Y=1946.156mil|Location2.Y=1957.406mil|Absolute=True">Silk To Silk Clearance Constraint: (5.369mil &lt; 10mil) Between Text "VCC" (4155mil,2020mil) on Top Overlay And Track (4145mil,1930mil)(4145mil,2160mil) on Top Overlay Silk Text to Silk Clearance [5.369mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4141.167mil|Location2.X=4148.833mil|Location1.Y=2140.755mil|Location2.Y=2148.421mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4141.167mil|Location2.X=4148.833mil|Location1.Y=2140.755mil|Location2.Y=2148.421mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 10mil) Between Text "J1" (4130mil,2150mil) on Top Overlay And Track (4145mil,1930mil)(4145mil,2160mil) on Top Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4133.811mil|Location2.X=4141.477mil|Location1.Y=2156.167mil|Location2.Y=2163.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4133.811mil|Location2.X=4141.477mil|Location1.Y=2156.167mil|Location2.Y=2163.833mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 10mil) Between Text "J1" (4130mil,2150mil) on Top Overlay And Track (3945mil,2160mil)(4145mil,2160mil) on Top Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3934.933mil|Location2.X=3946.183mil|Location1.Y=1944.273mil|Location2.Y=1955.523mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3934.933mil|Location2.X=3946.183mil|Location1.Y=1944.273mil|Location2.Y=1955.523mil|Absolute=True">Silk To Silk Clearance Constraint: (3.883mil &lt; 10mil) Between Text "GND" (3905mil,2015mil) on Top Overlay And Track (3945mil,1930mil)(3945mil,2160mil) on Top Overlay Silk Text to Silk Clearance [3.883mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3934.838mil|Location2.X=3946.088mil|Location1.Y=1927.468mil|Location2.Y=1938.718mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3934.838mil|Location2.X=3946.088mil|Location1.Y=1927.468mil|Location2.Y=1938.718mil|Absolute=True">Silk To Silk Clearance Constraint: (5.982mil &lt; 10mil) Between Text "GND" (3905mil,2015mil) on Top Overlay And Track (3945mil,1930mil)(4145mil,1930mil) on Top Overlay Silk Text to Silk Clearance [5.982mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID1G34DI1EMJQMBY1NMRFSOFOVMHDGWAIUEJB1SZJNH5ZPD4XMLHIJ"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Modified Polygon (Allow modified: No), (Allow shelved: No)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2130mil|Location2.X=4625mil|Location1.Y=955mil|Location2.Y=2775mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\Working\Project 2016\Switch BLE\Work\Switch BLE\V1I1\SWITCH_BLE_PCB_V1I1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2130mil|Location2.X=4625mil|Location1.Y=955mil|Location2.Y=2775mil|Absolute=True">Modified Polygon: Polygon Shelved  (top) on Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
